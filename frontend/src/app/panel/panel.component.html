@@ -1,0 +1,50 @@
+<section class="all" style="display:flex; flex-direction: column;">
+  <section style="display: flex; flex-direction: row; justify-content: space-evenly">
+    <section [@slideInOut] *ngIf="!this.state.clicked" class="main-panel forest"
+             [class.selected]="state.isGreenMode && d" (pointerover)="state.overNormal=true"
+             (pointerleave)="state.overNormal=false">
+
+      <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" dropZoneClassName="dp"
+                     contentClassName="dp-content"
+                     (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+        <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+          <div class="fileZone"
+               style="  display:flex; flex-direction: column; height:100%; width:100%; cursor:pointer;justify-content: center"
+               (click)="openFileSelector()">
+            <div *ngIf="state.isGreenMode && d" style="text-align: center">File selected!</div>
+          </div>
+        </ng-template>
+      </ngx-file-drop>
+
+    </section>
+    <section [@slideInOut] *ngIf="!this.state.clicked" class="main-panel fire-forest"
+             [class.selected]="state.isFireMode && d" (pointerover)="state.overFire=true"
+             (pointerleave)="state.overFire=false">
+
+      <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="droppedFire($event)" dropZoneClassName="dp"
+                     contentClassName="dp-content"
+                     (onFileOver)="fileOverFire($event)" (onFileLeave)="fileLeaveFire($event)">
+        <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+          <div class="fileZone"
+               style="  display:flex; flex-direction: column; height:100%; width:100%; cursor:pointer;justify-content: center"
+               (click)="openFileSelector()">
+            <div *ngIf="state.isFireMode && d " style="text-align: center">File selected!</div>
+          </div>
+        </ng-template>
+      </ngx-file-drop>
+    </section>
+  </section>
+  <div style="width:50vw;padding-top:50px;" [@slideInOut2] *ngIf="!this.state.clicked">
+    <button type="button" id="button" class="btn" [class.disabled]="!d" (click)="onBtnClick()"><span *ngIf="state.isNormalMode">Upload Image First</span><span *ngIf="state.isGreenMode">Ignite!</span><span *ngIf="state.isFireMode">Stifle!</span></button>
+
+  </div>
+  <section class="image-container" [@slideInOut] *ngIf="state.resultReady">
+    <img width="310" height="310" src="{{path}}" *ngIf="env">
+    <img width="310" height="310" src="http://localhost:5000/{{path}}" *ngIf="!env">
+  </section>
+  <div style="width:50vw;padding-top:50px;" [@slideInOut2] *ngIf="state.resultReady">
+  <button type="button" class="btn" (click)="reset()">Reset!</button>
+
+  </div>
+</section>
+
